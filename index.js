@@ -20,7 +20,7 @@ app.get('/',(req,res)=>{
 
 app.post('/create-checkout-session', async (req, res) => {
     try {
-        // const price = req.body.price;
+        const price = req.body.price;
 
         const session = await stripe.checkout.sessions.create({
           payment_method_types: ['card'],
@@ -28,9 +28,9 @@ app.post('/create-checkout-session', async (req, res) => {
             price_data: {
               currency: 'usd',
               product_data: {
-                name: 'عسل السدر',
+                name: 'عسل',
               },
-              unit_amount: 100,
+              unit_amount: price,
             },
             quantity: 1,
           }],
