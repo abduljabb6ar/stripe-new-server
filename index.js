@@ -18,7 +18,7 @@ app.get('/',(req,res)=>{
 })
 
 
-app.post('/checkout', async (req, res) => {
+app.post('/create-checkout-session', async (req, res) => {
     try {
         // const price = req.body.price;
 
@@ -36,8 +36,8 @@ app.post('/checkout', async (req, res) => {
           }],
             mode: 'payment',
             // ui_mode: 'embedded',
-            success_url: 'https://ghidhaalruwh.netlify.app/complate',
-            cancel_url: 'https://ghidhaalruwh.netlify.app/cancel',
+            success_url: 'https://ghidhaalruwh.netlify.app',
+            cancel_url: 'https://ghidhaalruwh.netlify.app',
         });
       res.redirect(session.url); // توجيه المستخدم إلى صفحة الدفع في Stripe
 

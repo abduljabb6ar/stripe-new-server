@@ -6,33 +6,9 @@
     <title>shopping cart </title>
 </head>
 <body>
-    <script>
-        // Function to create and submit a form
-        function createAndSubmitForm(actionURL, params) {
-            var form = document.createElement("form");
-            form.method = "POST";
-            form.action = actionURL;
-
-            for (var key in params) {
-                if (params.hasOwnProperty(key)) {
-                    var hiddenField = document.createElement("input");
-                    hiddenField.type = "hidden";
-                    hiddenField.name = key;
-                    hiddenField.value = params[key];
-                    form.appendChild(hiddenField);
-                }
-            }
-
-            document.body.appendChild(form);
-            form.submit();
-        }
-
-        // Call the function with the desired URL and parameters
-        createAndSubmitForm("https://stripserver.onrender.com/create-checkout-session", { price: "10" });
-    </script>
-    <!-- <h1>shopping wher strpie </h1>
+    <h1>shopping wher strpie </h1>
     <form action="/checkout" method="post">
         <input type="submit" value="process to chekout">
-    </form> -->
+    </form>
 </body>
 </html>
