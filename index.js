@@ -2,12 +2,12 @@ require("dotenv").config();
 // const cors = require('cors');
 var express=require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const stripe=require('stripe')(process.env.STRIPE_SECRIT)
 const port=8000||process.env.PORT;
 var app=express();
 
 app.use(cors());
-const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -30,7 +30,7 @@ app.post('/checkout', async (req, res) => {
               product_data: {
                 name: 'عسل',
               },
-              unit_amount: parseInt(price,10),
+              unit_amount: price,
             },
             quantity: 1,
           }],
@@ -39,7 +39,8 @@ app.post('/checkout', async (req, res) => {
             success_url: 'https://ghidhaalruwh.netlify.app',
             cancel_url: 'https://ghidhaalruwh.netlify.app',
         });
-      res.redirect(session.url); // توجيه المستخدم إلى صفحة الدفع في Stripe
+      // res.redirect(session.url); // توجيه المستخدم إلى صفحة الدفع في Stripe
+       res.json({ url: session.url });
 
     } catch (error) {
         console.error('Error:', error);
