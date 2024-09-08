@@ -21,6 +21,7 @@ app.get('/',(req,res)=>{
 app.post('/checkout', async (req, res) => {
     try {
         const price = parseInt(req.body.price,10);
+        const itmename = req.body.price;
 
         const session = await stripe.checkout.sessions.create({
           payment_method_types: ['card'],
@@ -28,7 +29,7 @@ app.post('/checkout', async (req, res) => {
             price_data: {
               currency: 'usd',
               product_data: {
-                name: 'عسل',
+                name: itmename,
               },
               unit_amount: price,
             },
