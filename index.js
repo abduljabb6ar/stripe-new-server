@@ -17,12 +17,12 @@ app.get('/',(req,res)=>{
     res.render("index.ejs")
 })
 app.post('/create-payment-intent', async (req, res) => {
-  const {  currency, customerId, email, line1,line2,city,state,postalCode,country } = req.body;
+  const {  amount,currency, customerId, email, line1,line2,city,state,postalCode,country } = req.body;
 
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount, // المبلغ بالدولار أو أي عملة أخرى
-      currency: currency, // العملة
+      currency: 'usd', // العملة
       metadata: {
         firebaseUserId: customerId, // معرف المستخدم في Firebase
       },
