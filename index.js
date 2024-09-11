@@ -16,33 +16,85 @@ app.set('view engine','ejs');
 app.get('/',(req,res)=>{
     res.render("index.ejs")
 })
+// app.post('/checkout', async (req, res) => {
+//   const {  amount,currency, customerId, email, line1,line2,city,state,postalCode,country } = req.body;
+
+//   try {
+//     const paymentIntent = await stripe.paymentIntents.create({
+//       amount: amount, // المبلغ بالدولار أو أي عملة أخرى
+//       currency: currency, // العملة
+//       metadata: {
+//         firebaseUserId: customerId, // معرف المستخدم في Firebase
+//       },
+//       receipt_email: email, // البريد الإلكتروني
+//       shipping: {
+//         name: 'Customer Name',
+//         address: {
+//           line1: line1,
+//           line2: line2,
+//           city: city,
+//           state: state,
+//           postal_code: postalCode,
+//           country: country,
+//         },
+//       },
+//     });
+
+//     res.json({ clientSecret: paymentIntent.client_secret });
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+// });
 app.post('/checkout', async (req, res) => {
-  const {  amount,currency, customerId, email, line1,line2,city,state,postalCode,country } = req.body;
-
   try {
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount, // المبلغ بالدولار أو أي عملة أخرى
-      currency: currency, // العملة
-      metadata: {
-        firebaseUserId: customerId, // معرف المستخدم في Firebase
-      },
-      receipt_email: email, // البريد الإلكتروني
-      shipping: {
-        name: 'Customer Name',
-        address: {
-          line1: line1,
-          line2: line2,
-          city: city,
-          state: state,
-          postal_code: postalCode,
-          country: country,
-        },
-      },
-    });
+      const price = parseInt(req.body.price, 10);
+      const itmename = req.body.itmename;
+      const userId = req.body.userId; // معرف المستخدم من Firebase
+      const userEmail = req.body.userEmail; // البريد الإلكتروني
+      const line1 = req.body.line1; // عنوان الشحن
+      const line2 = req.body.line2; // عنوان الشحن
+      const city = req.body.city; // عنوان الشحن
+      const state = req.body.state; // عنوان الشحن
+      const postalCode = req.body.postalCode; // عنوان الشحن
+      const country = req.body.country; // عنوان الشحن
 
-    res.json({ clientSecret: paymentIntent.client_secret });
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: [{
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: itmename,
+            },
+            unit_amount: price,
+          },
+          quantity: 1,
+        }],
+        mode: 'payment',
+        success_url: 'https://ghidhaalruwh.netlify.app',
+        cancel_url: 'https://ghidhaalruwh.netlify.app',
+        customer_email: userEmail, // تحديد البريد الإلكتروني هنا
+        metadata: {
+          userId: userId // تخزين معرف المستخدم في metadata
+        },
+        shipping: {
+          name: 'Customer Name',
+          address: {
+            line1: line1,
+            line2: line2,
+            city: city,
+            state: state,
+            postal_code: postalCode,
+            country: country,
+          },
+        },
+      });
+
+      res.json({ url: session.url });
+
   } catch (error) {
-    res.status(400).json({ error: error.message });
+      console.error('Error:', error);
+      res.status(500).send('Error occurred');
   }
 });
 
