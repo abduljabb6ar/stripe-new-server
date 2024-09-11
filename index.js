@@ -51,12 +51,12 @@ app.post('/checkout', async (req, res) => {
       const itmename = req.body.itmename;
       const userId = req.body.userId; // معرف المستخدم من Firebase
       const userEmail = req.body.userEmail; // البريد الإلكتروني
-      const line1 = req.body.line1; // عنوان الشحن
-      // const line2 = req.body.line2; // عنوان الشحن
-      const city = req.body.city; // عنوان الشحن
-      const state = req.body.state; // عنوان الشحن
-      const postalCode = req.body.postalCode; // عنوان الشحن
-      const country = req.body.country; // عنوان الشحن
+      const line1 = req.body.shippingAddress; // عنوان الشحن
+      // // const line2 = req.body.line2; // عنوان الشحن
+      // const city = req.body.city; // عنوان الشحن
+      // const state = req.body.state; // عنوان الشحن
+      // const postalCode = req.body.postalCode; // عنوان الشحن
+      // const country = req.body.country; // عنوان الشحن
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
@@ -75,19 +75,20 @@ app.post('/checkout', async (req, res) => {
         cancel_url: 'https://ghidhaalruwh.netlify.app',
         customer_email: userEmail, // تحديد البريد الإلكتروني هنا
         metadata: {
-          userId: userId // تخزين معرف المستخدم في metadata
+          userId: userId, // تخزين معرف المستخدم في metadata
+          shippingAddress:shippingAddress
         },
-        shipping: {
-          name: 'Customer Name',
-          address: {
-            line1: line1,
-            // line2: line2,
-            city: city,
-            state: state,
-            postal_code: postalCode,
-            country: country,
-          },
-        },
+        // shipping: {
+        //   name: 'Customer Name',
+        //   address: {
+        //     shipping_rates: line1,
+        //     // line2: line2,
+        //     city: city,
+        //     state: state,
+        //     postal_code: postalCode,
+        //     country: country,
+        //   },
+        // },
       });
 
       res.json({ url: session.url });
