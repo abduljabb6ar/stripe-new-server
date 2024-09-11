@@ -16,38 +16,67 @@ app.set('view engine','ejs');
 app.get('/',(req,res)=>{
     res.render("index.ejs")
 })
+app.post('/create-payment-intent', async (req, res) => {
+  const {  currency, customerId, email, line1,line2,city,state,postalCode,country } = req.body;
 
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: amount, // المبلغ بالدولار أو أي عملة أخرى
+      currency: currency, // العملة
+      metadata: {
+        firebaseUserId: customerId, // معرف المستخدم في Firebase
+      },
+      receipt_email: email, // البريد الإلكتروني
+      shipping: {
+        name: 'Customer Name',
+        address: {
+          line1: line1,
+          line2: line2,
+          city: city,
+          state: state,
+          postal_code: postalCode,
+          country: country,
+        },
+      },
+    });
 
-app.post('/checkout', async (req, res) => {
-    try {
-        const price = parseInt(req.body.price,10);
-        const itmename = req.body.itmename;
-
-        const session = await stripe.checkout.sessions.create({
-          payment_method_types: ['card'],
-          line_items: [{
-            price_data: {
-              currency: 'usd',
-              product_data: {
-                name: itmename,
-              },
-              unit_amount: price,
-            },
-            quantity: 1,
-          }],
-            mode: 'payment',
-            // ui_mode: 'embedded',
-            success_url: 'https://ghidhaalruwh.netlify.app',
-            cancel_url: 'https://ghidhaalruwh.netlify.app',
-        });
-      // res.redirect(session.url); // توجيه المستخدم إلى صفحة الدفع في Stripe
-       res.json({ url: session.url });
-
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).send('Error occurred');
-    }
+    res.json({ clientSecret: paymentIntent.client_secret });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 });
+
+// app.post('/checkout', async (req, res) => {
+//     try {
+//         const price = parseInt(req.body.price,10);
+//         const itmename = req.body.itmename;
+
+//         const session = await stripe.checkout.sessions.create({
+//           payment_method_types: ['card'],
+//           line_items: [{
+//             price_data: {
+//               currency: 'usd',
+//               product_data: {
+                
+//                 name: itmename,
+//               },
+//               unit_amount: price,
+//             },
+//             quantity: 1,
+//           }],
+//             mode: 'payment',
+//             // ui_mode: 'embedded',
+//             success_url: 'https://ghidhaalruwh.netlify.app',
+//             cancel_url: 'https://ghidhaalruwh.netlify.app',
+//         });
+//       // res.redirect(session.url); // توجيه المستخدم إلى صفحة الدفع في Stripe
+//        res.json({ url: session.url });
+
+//     } catch (error) {
+//         console.error('Error:', error);
+//         res.status(500).send('Error occurred');
+//     }
+// });
 app.get('/complate',async(req,res)=>{
     try{
       await  paypal.capturpayment(req.query.token)
