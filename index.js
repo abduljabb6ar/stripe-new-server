@@ -52,7 +52,7 @@ app.post('/checkout', async (req, res) => {
       const userId = req.body.userId; // معرف المستخدم من Firebase
       const userEmail = req.body.userEmail; // البريد الإلكتروني
       const line1 = req.body.line1; // عنوان الشحن
-      const line2 = req.body.line2; // عنوان الشحن
+      // const line2 = req.body.line2; // عنوان الشحن
       const city = req.body.city; // عنوان الشحن
       const state = req.body.state; // عنوان الشحن
       const postalCode = req.body.postalCode; // عنوان الشحن
@@ -81,7 +81,7 @@ app.post('/checkout', async (req, res) => {
           name: 'Customer Name',
           address: {
             line1: line1,
-            line2: line2,
+            // line2: line2,
             city: city,
             state: state,
             postal_code: postalCode,
