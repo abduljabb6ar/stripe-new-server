@@ -64,16 +64,17 @@ app.post('/checkout', async (req, res) => {
           price_data: {
             currency: 'usd',
             product_data: {
-              name: itmename,
+              0: itmename,
             },
             unit_amount: price,
           },
           quantity: 1,
         }],
         mode: 'payment',
-        success_url: 'https://ghidhaalruwh.netlify.app',
-        cancel_url: 'https://ghidhaalruwh.netlify.app',
+        success_url: 'https://ghidhaalruwhusa.com/success',
+        cancel_url: 'https://ghidhaalruwhusa.com/cancel',
         customer_email: userEmail, // تحديد البريد الإلكتروني هنا
+        // phone
         metadata: {
           userId: userId, // تخزين معرف المستخدم في metadata
           shippingAddress:shippingAddress
@@ -98,7 +99,22 @@ app.post('/checkout', async (req, res) => {
       res.status(500).send('Error occurred');
   }
 });
+app.get('/getdata/:id', async (req, res) => {
+  try {
+      const paymentIntentId = req.params.id;
+      const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
 
+      // إرسال البيانات الوصفية مع تفاصيل الدفع
+      res.json({
+          client_secret: paymentIntent.client_secret,
+          metadata: paymentIntent.metadata,
+          amount_received: paymentIntent.amount_received
+      });
+  } catch (error) {
+      console.error('Error:', error);
+      res.status(500).send('Error occurred');
+  }
+});
 // app.post('/checkout', async (req, res) => {
 //     try {
 //         const price = parseInt(req.body.price,10);
