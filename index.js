@@ -52,6 +52,8 @@ app.post('/checkout', async (req, res) => {
       const userId = req.body.userId; // معرف المستخدم من Firebase
       const userEmail = req.body.userEmail; // البريد الإلكتروني
       const shippingAddress = req.body.shippingAddress; // عنوان الشحن
+      const token = req.body.token; // عنوان الشحن
+      const successUrl = `https://ghidhaalruwhusa.com/success?token=${token}`;
       // // const line2 = req.body.line2; // عنوان الشحن
       // const city = req.body.city; // عنوان الشحن
       // const state = req.body.state; // عنوان الشحن
@@ -71,11 +73,12 @@ app.post('/checkout', async (req, res) => {
           quantity: 1,
         }],
         mode: 'payment',
-        success_url: 'https://ghidhaalruwhusa.com/success',
+        success_url: successUrl,
         cancel_url: 'https://ghidhaalruwhusa.com/cancel',
         customer_email: userEmail, // تحديد البريد الإلكتروني هنا
         // phone
         metadata: {
+          productName:itmename,
           userId: userId, // تخزين معرف المستخدم في metadata
           shippingAddress:shippingAddress
         },
