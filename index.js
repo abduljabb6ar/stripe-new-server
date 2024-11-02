@@ -52,8 +52,8 @@ app.post('/checkout', async (req, res) => {
       const userId = req.body.userId; // معرف المستخدم من Firebase
       const userEmail = req.body.userEmail; // البريد الإلكتروني
       const shippingAddress = req.body.shippingAddress; // عنوان الشحن
-      // const token = req.body.token; // عنوان الشحن
-      const successUrl = `https://ghidhaalruwhusa.com/success?token=${userId}`;
+      const token = req.body.token; // عنوان الشحن
+      const successUrl = `https://ghidhaalruwhusa.com/success?token=${token}`;
       // // const line2 = req.body.line2; // عنوان الشحن
       // const city = req.body.city; // عنوان الشحن
       // const state = req.body.state; // عنوان الشحن
