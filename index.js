@@ -108,8 +108,8 @@ const encryptedPassword = encrypt(password, encryptionKey,iv);
         //   },
         // },
       });
-      res.redirect(session.url); 
-      // res.json({ url: session.url });
+      // res.redirect(session.url); 
+      res.json({ url: session.url });
 
   } catch (error) {
       console.error('Error:', error);
