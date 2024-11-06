@@ -8,6 +8,9 @@ const port=8000||process.env.PORT;
 var app=express();
 const crypto = require('crypto');
 app.use(cors());
+app.use(cors({
+  origin: 'https://www.ghidhaalruwhusa.com'
+}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
