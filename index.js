@@ -42,7 +42,6 @@ app.get('/',(req,res)=>{
 //         },
 //       },
 //     });
-
 //     res.json({ clientSecret: paymentIntent.client_secret });
 //   } catch (error) {
 //     res.status(400).json({ error: error.message });
@@ -66,11 +65,11 @@ app.post('/checkout', async (req, res) => {
       const userEmail = req.body.userEmail; // البريد الإلكتروني
       const shippingAddress = req.body.shippingAddress; // عنوان الشحن
       // const token = req.body.token; // عنوان الشحن
-      const password = req.body.password; // عنوان الشحن
+      const token = req.body.token; // عنوان الشحن
 
-const encryptedEmail = encrypt(userEmail, encryptionKey,iv);
-const encryptedPassword = encrypt(password, encryptionKey,iv);
-      const successUrl = `https://ghidhaalruwhusa.com/success?email=${encodeURIComponent(encryptedEmail)}&password=${encodeURIComponent(encryptedPassword)}`;
+// const encryptedEmail = encrypt(userEmail, encryptionKey,iv);
+// const encryptedPassword = encrypt(password, encryptionKey,iv);
+      const successUrl = `https://ghidhaalruwhusa.com/success?token=${token}`;
       // // const line2 = req.body.line2; // عنوان الشحن
       // const city = req.body.city; // عنوان الشحن
       // const state = req.body.state; // عنوان الشحن
