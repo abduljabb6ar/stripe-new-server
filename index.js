@@ -72,7 +72,7 @@ const encryptedPassword = encrypt(password, encryptionKey,iv);
       // const city = req.body.city; // عنوان الشحن
       // const state = req.body.state; // عنوان الشحن
       // const postalCode = req.body.postalCode; // عنوان الشحن
-      // const country = req.body.country; // عنوان الشحن
+      
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
