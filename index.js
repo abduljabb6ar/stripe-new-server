@@ -63,7 +63,7 @@ app.post('/checkout', async (req, res) => {
       const userEmail = req.body.userEmail; // البريد الإلكتروني
       const shippingAddress = req.body.shippingAddress; // عنوان الشحن
       // const token = req.body.token; // عنوان الشحن
-      const password = req.body.token; // عنوان الشحن
+      const password = req.body.password; // عنوان الشحن
 
 const encryptedEmail = encrypt(userEmail, encryptionKey,iv);
 const encryptedPassword = encrypt(password, encryptionKey,iv);
