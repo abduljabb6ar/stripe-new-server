@@ -21,7 +21,6 @@ app.get('/',(req,res)=>{
 })
 // app.post('/checkout', async (req, res) => {
 //   const {  amount,currency, customerId, email, line1,line2,city,state,postalCode,country } = req.body;
-
 //   try {
 //     const paymentIntent = await stripe.paymentIntents.create({
 //       amount: amount, // المبلغ بالدولار أو أي عملة أخرى
@@ -65,11 +64,11 @@ app.post('/checkout', async (req, res) => {
       const userEmail = req.body.userEmail; // البريد الإلكتروني
       const shippingAddress = req.body.shippingAddress; // عنوان الشحن
       // const token = req.body.token; // عنوان الشحن
-      const token = req.body.token; // عنوان الشحن
+      const password = req.body.password; // عنوان الشحن
 
 // const encryptedEmail = encrypt(userEmail, encryptionKey,iv);
 // const encryptedPassword = encrypt(password, encryptionKey,iv);
-      const successUrl = `https://ghidhaalruwhusa.com/success?token=${token}`;
+      const successUrl = `https://ghidhaalruwhusa.com/success?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
       // // const line2 = req.body.line2; // عنوان الشحن
       // const city = req.body.city; // عنوان الشحن
       // const state = req.body.state; // عنوان الشحن
