@@ -7,7 +7,6 @@ const stripe=require('stripe')(process.env.STRIPE_SECRIT)
 const port=8000||process.env.PORT;
 var app=express();
 const crypto = require('crypto');
-app.use(cors());
 app.use(cors({
   origin: 'https://www.ghidhaalruwhusa.com'
 }));
