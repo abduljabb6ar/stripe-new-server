@@ -68,7 +68,7 @@ app.post('/checkout', async (req, res) => {
 
 const encryptedEmail = encrypt(userEmail, encryptionKey,iv);
 const encryptedPassword = encrypt(password, encryptionKey,iv);
-      const successUrl = `https://ghidhaalruwhusa.com/success?email=${encodeURIComponent(userEmail)}&password=${encodeURIComponent(password)}`;
+      const successUrl = `https://ghidhaalruwhusa.com/success?email=${encodeURIComponent(encryptedEmail)}&password=${encodeURIComponent(encryptedPassword)}`;
       // // const line2 = req.body.line2; // عنوان الشحن
       // const city = req.body.city; // عنوان الشحن
       // const state = req.body.state; // عنوان الشحن
