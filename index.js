@@ -53,7 +53,7 @@ function encrypt(data, key, iv) {
   
 }
 const iv = crypto.randomBytes(16)
-const encryptionKey = 'abduljabbarfuadamer1372001abdulj'; // تأكد أن المفتاح طوله 32 حرفًا
+// const encryptionKey = 'abduljabbarfuadamer1372001abdulj'; // تأكد أن المفتاح طوله 32 حرفًا
 app.post('/checkout', async (req, res) => {
   try {
       const price = parseInt(req.body.price, 10);
