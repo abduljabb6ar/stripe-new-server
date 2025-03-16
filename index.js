@@ -91,6 +91,7 @@ app.post('/checkout', async (req, res) => {
         cancel_url: 'https://ghidhaalruwhusa.com/cancel',
         customer_email: userEmail, // تحديد البريد الإلكتروني هنا
         // automatic_tax: 'true', 
+        automatic_tax: { enabled: true },
         // phone
         metadata: {
           productName:itmename,
