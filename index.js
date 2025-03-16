@@ -90,6 +90,7 @@ app.post('/checkout', async (req, res) => {
         success_url: successUrl,
         cancel_url: 'https://ghidhaalruwhusa.com/cancel',
         customer_email: userEmail, // تحديد البريد الإلكتروني هنا
+        automatic_tax: 'true', 
         // phone
         metadata: {
           productName:itmename,
